@@ -2,6 +2,7 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class BinarySearch {
     private int INIT_FILE_NUMBER;
@@ -21,4 +22,20 @@ public class BinarySearch {
         this.passwordFound = false;
     }
 
+    private void findePossibleFileRange() {
+
+    }
+
+    private String readFirstLine(int fileNumber) {
+        String line = null;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filePath + "Passwords_" + fileNumber + ".txt"));
+            line = br.readLine();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return parseLine(line);
+
+    }
 }
