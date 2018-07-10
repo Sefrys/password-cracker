@@ -50,6 +50,21 @@ public class BinarySearch {
         return new BigInteger(hash, 16);
     }
 
+    private void setHigherFileNumber() {
+        this.previousFileNumber = currentFileNumber;
+        double temp = currentFileNumber * 1.5;
+
+        if (temp > 1004) {
+            temp = 1004;
+        }
+
+        this.currentFileNumber = (int) temp;
+    }
+
+    private void setLowerFileNumber() {
+        int temp = Math.abs(previousFileNumber - currentFileNumber) / 2;
+        this.currentFileNumber = currentFileNumber - temp;
+    }
 
 
 
