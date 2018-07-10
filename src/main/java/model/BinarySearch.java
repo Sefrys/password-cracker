@@ -8,4 +8,11 @@ public class BinarySearch {
     private boolean possibleRangeFound;
     private boolean passwordFound;
 
+    public BinarySearch(int initialFileNumber, String password) {
+        this.INIT_FILE_NUMBER = initialFileNumber;
+        this.currentFileNumber = INIT_FILE_NUMBER;
+        this.password = password;
+        this.possibleRangeFound = false;
+        this.passwordFound = false;
+    }
 }
