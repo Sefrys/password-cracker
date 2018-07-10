@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 
-public class BinarySearch {
+public class BinarySearch implements Runnable {
     private int INIT_FILE_NUMBER;
     private int currentFileNumber;
     private int previousFileNumber;
@@ -15,6 +15,7 @@ public class BinarySearch {
     private String filePath;
     private boolean possibleRangeFound;
     private boolean passwordFound;
+    private boolean searchFinished;
 
     public BinarySearch(int fileCount, String password, String filePath, int searchRange) {
         this.INIT_FILE_NUMBER = fileCount / 2;
@@ -24,14 +25,22 @@ public class BinarySearch {
         this.filePath = filePath;
         this.possibleRangeFound = false;
         this.passwordFound = false;
+        this.searchFinished = false;
     }
 
-    public void binarySearch() {
+    public void run() {
+        while(!searchFinished) {
+            binarySearch();
+        }
+
+    }
+
+    private void binarySearch() {
         while (!possibleRangeFound) {
             findPossibleFileRange();
         }
 
-        while (!passwordFound) {
+        while (!passwordFound && !searchFinished) {
             readFile();
         }
     }
@@ -111,12 +120,16 @@ public class BinarySearch {
 
 
         for (int i = upperBound; i >= lowerBound; i--) {
+            if (searchFinished) {
+                break;
+            }
             if (readLines(i)) {
-                System.out.println("File number: " + i);
-                System.out.println("Password found. Breached times: " + breachCount);
+                this.passwordFound = true;
                 break;
             }
         }
+
+        this.searchFinished = true;
     }
 
     private boolean readLines(int fileNumber) {
@@ -126,8 +139,9 @@ public class BinarySearch {
             while ((line = br.readLine()) != null) {
                 if (compareHexValues(parseLineGetHex(line)) == 1) {
                     return false;
-                } else
-                    if (compareHexValues(parseLineGetHex(line)) == 0) {
+                }
+
+                if (compareHexValues(parseLineGetHex(line)) == 0) {
                     this.breachCount = parseLineGetBreachCount(line);
                     this.passwordFound = true;
                     return true;
@@ -137,7 +151,7 @@ public class BinarySearch {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        this.searchFinished = true;
         return false;
     }
 
