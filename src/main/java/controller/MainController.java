@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import main.java.service.InputGetter;
+import main.java.utils.Complexity;
 import main.java.view.View;
 
 
@@ -20,9 +21,11 @@ public class MainController {
     }
 
     public void runApp() {
+        String userInput;
+
         while (!isAppEnd) {
             view.displayMenu();
-            String userInput = inputGetter.takeUserInput();
+            userInput = inputGetter.takeUserInput();
 
             if (checkPassword.equals(userInput)) {
                 ;
