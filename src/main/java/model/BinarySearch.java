@@ -46,6 +46,11 @@ public class BinarySearch {
     }
 
 
+    private BigInteger hexToDecimal(String hash) {
+        return new BigInteger(hash, 16);
+    }
+
+
 
 
     private boolean isPossibleRangeFound() {
