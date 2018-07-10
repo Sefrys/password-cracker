@@ -3,6 +3,7 @@ package model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 
 public class BinarySearch {
     private int INIT_FILE_NUMBER;
@@ -27,14 +28,21 @@ public class BinarySearch {
     private void findPossibleFileRange() {
         String lookedUpHash = readFirstLine(currentFileNumber);
 
-        if (isPossibleRange()) {
+        if (isPossibleRangeFound()) {
             possibleRangeFound = true;
+        } else if (compareHexValues(lookedUpHash) == 0) {
+            this.passwordFound = true;
+        } else if (compareHexValues(lookedUpHash) == 1) {
+            setLowerFileNumber();
+            findPossibleFileRange();
+        } else if (compareHexValues(lookedUpHash) == -1) {
+            setHigherFileNumber();
+            findPossibleFileRange();
         }
-
     }
 
 
-    private boolean isPossibleRange() {
+    private boolean isPossibleRangeFound() {
         if (Math.abs(previousFileNumber - currentFileNumber) < searchRange) {
             possibleRangeFound = true;
             return true;
