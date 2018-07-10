@@ -109,9 +109,10 @@ public class BinarySearch {
         int upperBound = currentFileNumber + searchRange;
         upperBound = validateFileNumberBound(upperBound);
 
-        for (int i = lowerBound; i <= upperBound; i++) {
-            System.out.println("Looking in file nr: " + i);
+
+        for (int i = upperBound; i >= lowerBound; i--) {
             if (readLines(i)) {
+                System.out.println("File number: " + i);
                 System.out.println("Password found. Breached times: " + breachCount);
                 break;
             }
@@ -123,7 +124,10 @@ public class BinarySearch {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath + "Passwords_" + fileNumber + ".txt"));
             while ((line = br.readLine()) != null) {
-                if (compareHexValues(parseLineGetHex(line)) == 0) {
+                if (compareHexValues(parseLineGetHex(line)) == 1) {
+                    return false;
+                } else
+                    if (compareHexValues(parseLineGetHex(line)) == 0) {
                     this.breachCount = parseLineGetBreachCount(line);
                     this.passwordFound = true;
                     return true;
