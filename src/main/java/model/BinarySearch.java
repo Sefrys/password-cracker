@@ -41,6 +41,12 @@ public class BinarySearch {
         }
     }
 
+    private int compareHexValues(String hash) {
+        return hexToDecimal(hash).compareTo(hexToDecimal(password));
+    }
+
+
+
 
     private boolean isPossibleRangeFound() {
         if (Math.abs(previousFileNumber - currentFileNumber) < searchRange) {
