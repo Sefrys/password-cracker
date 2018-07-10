@@ -169,4 +169,15 @@ public class BinarySearch implements Runnable {
         return line.substring(line.indexOf(':') + 1);
     }
 
+    public String getBreachCount() {
+        return breachCount;
+    }
+
+    public boolean isPasswordFound() {
+        return passwordFound;
+    }
+
+    public boolean isSearchFinished() {
+        return searchFinished;
+    }
 }
