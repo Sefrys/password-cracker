@@ -31,6 +31,10 @@ public class BinarySearch {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath + "Passwords_" + fileNumber + ".txt"));
             line = br.readLine();
+            
+            if (line == null) {
+                throw new NullPointerException("First line in file nr: " + fileNumber + " is empty");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,5 +46,4 @@ public class BinarySearch {
         return line.substring(0, line.indexOf(':'));
     }
 
-    
 }
