@@ -35,7 +35,12 @@ public class BinarySearch {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return parseLine(line);
-
+        return parseLineGetHex(line);
     }
+
+    private String parseLineGetHex(String line) {
+        return line.substring(0, line.indexOf(':'));
+    }
+
+    
 }
