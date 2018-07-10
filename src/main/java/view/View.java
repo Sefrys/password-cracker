@@ -14,6 +14,8 @@ public class View {
         for (String menuOption : menuOptions) {
             System.out.println(menuOption);
         }
+
+        System.out.println("Enter number option: ");
     }
 
 }
