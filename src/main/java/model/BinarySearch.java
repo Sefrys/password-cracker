@@ -105,7 +105,9 @@ public class BinarySearch {
 
     private void readFile() {
         int lowerBound = currentFileNumber - searchRange;
+        lowerBound = validateFileNumberBound(lowerBound);
         int upperBound = currentFileNumber + searchRange;
+        upperBound = validateFileNumberBound(upperBound);
 
         for (int i = lowerBound; i <= upperBound; i++) {
             System.out.println("Looking in file nr: " + i);
