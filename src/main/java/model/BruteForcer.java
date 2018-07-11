@@ -32,6 +32,7 @@ public class BruteForcer implements Runnable{
         Date start = new Date();
         boolean found = search();
         Date end = new Date();
+        System.out.println("--------------------------------");
         if(found) System.out.println("it took: " + (end.getTime() - start.getTime()) + "ms to crack '" + this.password +
                 "' using Bruteforce by WatekLeszczy");
     }

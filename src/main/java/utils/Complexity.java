@@ -2,11 +2,9 @@ package utils;
 
 public enum Complexity {
 
-    ERROR(-1),
     EASY(10),
     MEDIUM(36),
-    HARD(62)
-    ;
+    HARD(62);
 
     private int size;
 
@@ -17,6 +15,4 @@ public enum Complexity {
     public int getComplexity() {
        return size;
     }
-
-
 }
