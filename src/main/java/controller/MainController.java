@@ -1,9 +1,8 @@
-package main.java.controller;
+package controller;
 
-import main.java.service.InputGetter;
-import main.java.utils.Complexity;
-import main.java.view.View;
 
+import service.InputGetter;
+import view.View;
 
 public class MainController {
     private InputGetter inputGetter;
