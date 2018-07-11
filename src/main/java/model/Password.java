@@ -14,7 +14,12 @@ public class Password {
         this.password = password;
         this.length = password.length();
         this.array = password.toCharArray();
-        this.complexity = PasswordService.validate(password);
+        preparePasswordComplexity();
+    }
+
+    private void preparePasswordComplexity() {
+        PasswordService.validate(password);
+        this.complexity = PasswordService.getComplexity();
     }
 
     public String getPassword() {
