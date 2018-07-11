@@ -1,17 +1,19 @@
 package model;
 
+import service.PasswordService;
+
 public class Password {
 
     private String password;
     private int length;
     private char[] array;
-//    private int level;
+    private Enum complexity;
 
     public Password(String password) {
         this.password = password;
         this.length = password.length();
         this.array = password.toCharArray();
-//        this.level = 0;
+        this.complexity = PasswordService.validate(password);
     }
 
     public String getPassword() {
@@ -26,7 +28,7 @@ public class Password {
         return array;
     }
 
-//    public int getLevel() {
-//        return level;
-//    }
+    public Enum getComplexity() {
+        return complexity;
+    }
 }
