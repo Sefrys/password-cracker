@@ -17,6 +17,10 @@ public class PasswordService {
         else if (containsDigits && !containsUpperCaseCharacter && !containsLowerCaseCharacter) complexity = Complexity.EASY;
     }
 
+    public static Complexity getComplexity() {
+        return complexity;
+    }
+
     private static void iterate(String password) throws IllegalArgumentException {
         for (char letter : password.toCharArray()) {
             if (isUpperCaseLetter(letter)) {
@@ -26,13 +30,9 @@ public class PasswordService {
             } else if (isDigit(letter)) {
                 containsDigits = true;
             } else {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Illegal character! Password can contain only numbers and letters");
             }
         }
-    }
-
-    public static Complexity getComplexity() {
-        return complexity;
     }
 
     private static boolean isUpperCaseLetter(char c) {
