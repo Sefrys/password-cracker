@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# Plik testowy macka
+src/main/java/model/test.java
+
 # Log file
 *.log
 

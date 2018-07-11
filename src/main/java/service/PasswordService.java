@@ -1,5 +1,7 @@
 package service;
 
+import utils.Complexity;
+
 public class PasswordService {
 
     private static boolean containsDigits = false;
