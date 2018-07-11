@@ -20,7 +20,6 @@ public class BruteForcer implements Runnable{
         this.length = password.getLength();
         this.firstChar = firstChar;
         this.possibleValues = password.getComplexity().getComplexity();
-        System.out.println(this.possibleValues);
         this.startingSequence = new char[this.length];
         this.startingSequence[0] = this.firstChar;
         for(int i = 1; i < this.length; i++){
@@ -30,17 +29,15 @@ public class BruteForcer implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("running");
         Date start = new Date();
         boolean found = search();
         Date end = new Date();
-        if(found) System.out.println("it took: " + (end.getTime() - start.getTime()) + "ms");
-        System.out.println("end");
+        if(found) System.out.println("it took: " + (end.getTime() - start.getTime()) + "ms to crack '" + this.password +
+                "' using Bruteforce by WatekLeszczy");
     }
 
     private boolean search(){
         if(Comparator.isPasswordFound(String.valueOf(startingSequence))){
-            System.out.println("found password: " + String.valueOf(startingSequence));
             return true;
         }
 
@@ -61,7 +58,6 @@ public class BruteForcer implements Runnable{
             }
 
             if(Comparator.isPasswordFound(String.valueOf(startingSequence))){
-                System.out.println("found password: " + String.valueOf(startingSequence));
                 return true;
             }
         }

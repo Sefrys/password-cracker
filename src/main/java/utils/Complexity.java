@@ -4,8 +4,7 @@ public enum Complexity {
 
     ERROR(-1),
     EASY(10),
-    MEDIUM(26),
-    ADVANCED(36),
+    MEDIUM(36),
     HARD(62)
     ;
 

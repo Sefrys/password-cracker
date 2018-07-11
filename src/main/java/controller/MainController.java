@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.Comparator;
 import model.Password;
 import service.InputGetter;
 import utils.Message;
@@ -44,6 +45,8 @@ public class MainController {
 
         try {
             Password password = new Password(passwordToCrack);
+            new Comparator(password.getPassword());
+            BruteForceController.runCracker(password);
         }
         catch (IllegalArgumentException e) {
             view.displayError(e.getMessage());
