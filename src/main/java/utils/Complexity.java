@@ -2,6 +2,7 @@ package main.java.utils;
 
 public enum Complexity {
 
+    ERROR(-1),
     EASY(10),
     MEDIUM(26),
     ADVANCED(36),
