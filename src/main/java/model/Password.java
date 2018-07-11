@@ -1,17 +1,20 @@
 package model;
 
+import service.PasswordService;
+import utils.Complexity;
+
 public class Password {
 
     private String password;
     private int length;
     private char[] array;
-//    private int level;
+    private Complexity complexity;
 
     public Password(String password) {
         this.password = password;
         this.length = password.length();
         this.array = password.toCharArray();
-//        this.level = 0;
+        this.complexity = PasswordService.validate(password);
     }
 
     public String getPassword() {
@@ -26,7 +29,7 @@ public class Password {
         return array;
     }
 
-//    public int getLevel() {
-//        return level;
-//    }
+    public Complexity getComplexity() {
+        return complexity;
+    }
 }

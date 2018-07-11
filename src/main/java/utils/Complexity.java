@@ -1,31 +1,22 @@
-package main.java.utils;
+package utils;
 
-public class Complexity {
+public enum Complexity {
 
-    private char[] signContainer;
+    ERROR(-1),
+    EASY(10),
+    MEDIUM(26),
+    ADVANCED(36),
+    HARD(62)
+    ;
 
-    private static final String easy = "easy";
-    private static final String medium = "medium";
-    private static final String advanced = "advanced";
+    private int size;
 
-    public Complexity(String level) {
-        if (level.equals(easy)) {
-            signContainer = prepareNumbers();
-        }
-        else if (level.equals(medium)) {
-            signContainer = prepareChars();
-        }
-        else if (level.equals(advanced)) {
-            signContainer = prepareAll();
-        }
+    Complexity(int possibilities) {
+        this.size = possibilities;
     }
 
-    private char[] prepareNumbers() { return "1234567890".toCharArray(); }
-    private char[] prepareChars() { return "abcdefghijklmnopqrstuvwxyz".toCharArray(); }
-    private char[] prepareAll() { return "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray(); }
-
-    public char[] getSignContainer() {
-        return signContainer;
+    public int getComplexity() {
+       return size;
     }
 
 
