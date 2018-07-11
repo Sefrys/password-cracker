@@ -1,8 +1,10 @@
 package service;
 
+import utils.Complexity;
+
 public class PasswordService {
 
-    public static Enum validate(String password) {
+    public static Complexity validate(String password) {
         boolean containsDigits = false;
         boolean containsCharacter = false;
 

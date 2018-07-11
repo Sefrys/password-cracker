@@ -1,13 +1,14 @@
 package model;
 
 import service.PasswordService;
+import utils.Complexity;
 
 public class Password {
 
     private String password;
     private int length;
     private char[] array;
-    private Enum complexity;
+    private Complexity complexity;
 
     public Password(String password) {
         this.password = password;
@@ -28,7 +29,7 @@ public class Password {
         return array;
     }
 
-    public Enum getComplexity() {
+    public Complexity getComplexity() {
         return complexity;
     }
 }
