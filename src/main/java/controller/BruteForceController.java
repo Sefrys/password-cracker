@@ -12,6 +12,7 @@ import utils.AsciiValues;
 public class BruteForceController {
 
     private static ThreadContainer threadContainer;
+    private static Thread t1;
 
     public static void runCracker(Password password){
         char firstCharacter = AsciiValues.LOWER_DIGIT_BOUND.getValue();
@@ -32,13 +33,15 @@ public class BruteForceController {
 
             firstCharacter++;
         }
+       t1.interrupt();
     }
 
     public static void runThreadContainer() {
         initializeContainerForThreads();
-        new Thread(threadContainer).start();
+        t1 = new Thread(threadContainer);
+        t1.start();
     }
-    
+
     private static void initializeContainerForThreads() {
         threadContainer = new ThreadContainer();
     }
