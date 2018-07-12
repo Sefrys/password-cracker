@@ -34,11 +34,12 @@ public class BruteForceController {
         }
     }
 
-    public static void initializeContainerForThreads() {
-        threadContainer = new ThreadContainer();
-    }
-
-    private static void runThreadContainer() {
+    public static void runThreadContainer() {
+        initializeContainerForThreads();
         new Thread(threadContainer).start();
+    }
+    
+    private static void initializeContainerForThreads() {
+        threadContainer = new ThreadContainer();
     }
 }
