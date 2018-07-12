@@ -18,4 +18,12 @@ public class View {
         System.out.println("Enter number option: ");
     }
 
+    public void display(String msg) {
+        System.out.println(msg);
+    }
+
+    public void displayError(String msg) {
+        System.out.println(msg);
+    }
+
 }

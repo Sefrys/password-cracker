@@ -1,6 +1,7 @@
 package model;
 
-import java.util.Date;
+import utils.AsciiValues;
+import utils.Complexity;
 
 /**
  * Created by Maciej Jankowicz on 10.07.18, 13:17
@@ -13,6 +14,7 @@ public class BruteForcer implements Runnable{
     private int possibleValues;
     private char[] startingSequence;
     private String password;
+    private boolean isFound = false;
 
 
     public BruteForcer(Password password, char firstChar){
@@ -20,51 +22,63 @@ public class BruteForcer implements Runnable{
         this.length = password.getLength();
         this.firstChar = firstChar;
         this.possibleValues = password.getComplexity().getComplexity();
-        System.out.println(this.possibleValues);
-        this.startingSequence = new char[this.length];
-        this.startingSequence[0] = this.firstChar;
-        for(int i = 1; i < this.length; i++){
-            this.startingSequence[i] = '0';
-        }
+        prepareStartingSequence();
     }
 
     @Override
     public void run() {
-        System.out.println("running");
-        Date start = new Date();
-        boolean found = search();
-        Date end = new Date();
-        if(found) System.out.println("it took: " + (end.getTime() - start.getTime()) + "ms");
-        System.out.println("end");
+        while (true) {
+            if (Thread.interrupted()) {
+                break;
+            }
+            isFound = search();
+            
+            if (isFound) {
+                break;
+            }
+        }
     }
 
-    private boolean search(){
+    private boolean search() {
         if(Comparator.isPasswordFound(String.valueOf(startingSequence))){
-            System.out.println("found password: " + String.valueOf(startingSequence));
             return true;
         }
 
-        double charCode = -1d;
+        int numOffset = 55;
+        int numLetterOffset = 61;
+        double charCode;
 
         for(int i = 0; i<Math.pow(possibleValues, this.length); i++){
             for(int j = 1; j < startingSequence.length; j++){
 
-                charCode = ((new Double(i/(Math.pow(possibleValues,j)))).intValue()%possibleValues); //+48
-                if(charCode <10) {                      //numbers
-                    charCode += 48;
-                }else if(charCode>=10 && charCode<36){  //letters
-                    charCode += 55;
-                }else if(charCode >=36 && charCode<62){
-                    charCode += 61;
+                charCode = ((new Double(i/(Math.pow(possibleValues,j)))).intValue() % possibleValues);
+                if(charCode < Complexity.NUMS.getComplexity()) {
+                    charCode += AsciiValues.LOWER_DIGIT_BOUND.getValue();
+                }else if(charCode >= Complexity.NUMS.getComplexity() && charCode < Complexity.LETTERS.getComplexity()){
+                    charCode += numOffset;
+                }else if(charCode >= Complexity.LETTERS.getComplexity() && charCode < Complexity.NUMS_AND_LETTERS.getComplexity()){
+                    charCode += numLetterOffset;
                 }
                 startingSequence[j] = (char) charCode;
             }
 
             if(Comparator.isPasswordFound(String.valueOf(startingSequence))){
-                System.out.println("found password: " + String.valueOf(startingSequence));
                 return true;
             }
         }
         return false;
+    }
+
+    private void prepareStartingSequence() {
+        this.startingSequence = new char[this.length];
+        this.startingSequence[0] = this.firstChar;
+
+        for(int i = 1; i < this.length; i++){
+            this.startingSequence[i] = '0';
+        }
+    }
+
+    public boolean isFound() {
+        return isFound;
     }
 }

@@ -1,7 +1,10 @@
 package controller;
 
 
+import model.Comparator;
+import model.Password;
 import service.InputGetter;
+import utils.Message;
 import view.View;
 
 public class MainController {
@@ -27,12 +30,30 @@ public class MainController {
             userInput = inputGetter.takeUserInput();
 
             if (checkPassword.equals(userInput)) {
-                ;
+                handleCrackPassword();
             }
 
             if (exit.equals(userInput)) {
                 isAppEnd = true;
             }
+        }
+    }
+
+    private void handleCrackPassword() {
+        Password password = null;
+        view.display(Message.passwordInput.msg);
+        String passwordToCrack = inputGetter.takeUserInput();
+
+        try {
+            password = new Password(passwordToCrack);
+        }
+        catch (IllegalArgumentException e) {
+            view.displayError(e.getMessage());
+        }
+        
+        if (password != null) {
+//            new Comparator(password.getPassword());
+            BruteForceController.runCracker(password);
         }
     }
 }

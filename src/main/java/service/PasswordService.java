@@ -11,10 +11,13 @@ public class PasswordService {
 
     public static void validate(String password) throws IllegalArgumentException {
         iterate(password);
-        if (containsDigits && containsLowerCaseCharacter && containsUpperCaseCharacter) complexity = Complexity.HARD;
-        else if (containsUpperCaseCharacter && containsDigits) complexity = Complexity.ADVANCED;
-        else if (!containsDigits && containsUpperCaseCharacter) complexity = Complexity.MEDIUM;
-        else if (containsDigits && !containsUpperCaseCharacter && !containsLowerCaseCharacter) complexity = Complexity.EASY;
+        if (containsLowerCaseCharacter) complexity = Complexity.NUMS_AND_LETTERS;
+        else if (containsUpperCaseCharacter) complexity = Complexity.LETTERS;
+        else if (containsDigits) complexity = Complexity.NUMS;
+    }
+
+    public static Complexity getComplexity() {
+        return complexity;
     }
 
     private static void iterate(String password) throws IllegalArgumentException {
@@ -26,13 +29,9 @@ public class PasswordService {
             } else if (isDigit(letter)) {
                 containsDigits = true;
             } else {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Illegal character! Password can contain only numbers and letters");
             }
         }
-    }
-
-    public static Complexity getComplexity() {
-        return complexity;
     }
 
     private static boolean isUpperCaseLetter(char c) {

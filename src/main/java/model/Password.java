@@ -10,14 +10,14 @@ public class Password {
     private char[] array;
     private Complexity complexity;
 
-    public Password(String password) {
+    public Password(String password) throws IllegalArgumentException {
         this.password = password;
         this.length = password.length();
         this.array = password.toCharArray();
         preparePasswordComplexity();
     }
 
-    private void preparePasswordComplexity() {
+    private void preparePasswordComplexity() throws IllegalArgumentException {
         PasswordService.validate(password);
         this.complexity = PasswordService.getComplexity();
     }
