@@ -3,10 +3,9 @@ package utils;
 public enum Complexity {
 
     ERROR(-1),
-    EASY(10),
-    MEDIUM(36),
-    HARD(62)
-    ;
+    NUMS(10),
+    LETTERS(36),
+    NUMS_AND_LETTERS(62);
 
     private int size;
 
