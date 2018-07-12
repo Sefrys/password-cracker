@@ -27,7 +27,6 @@ public class BruteForcer implements Runnable{
 
     @Override
     public void run() {
-
         while (true) {
             if (Thread.interrupted()) {
                 break;

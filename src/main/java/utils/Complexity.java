@@ -16,6 +16,4 @@ public enum Complexity {
     public int getComplexity() {
        return size;
     }
-
-
 }
