@@ -2,8 +2,11 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class ThreadContainer {
+public class ThreadContainer implements Runnable {
+
+    private BruteForcer randomThread;
 
     public static List<BruteForcer> threadList = new ArrayList<>();
 
@@ -20,5 +23,28 @@ public class ThreadContainer {
             }
         }
         return result;
+    }
+
+    public void run() {
+        while(true) {
+            if (Thread.interrupted()) {
+                break;
+            }
+            pickRandomElement();
+        }
+    }
+    
+
+
+    private void pickRandomElement() {
+        int index = generateRandomNumber();
+        randomThread = threadList.get(index);
+    }
+
+    private int generateRandomNumber() {
+        Random random = new Random();
+        int range = threadList.size() - 1;
+
+        return random.nextInt(range);
     }
 }
