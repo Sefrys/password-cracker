@@ -1,5 +1,8 @@
 package model;
 
+import utils.AsciiValues;
+import utils.Complexity;
+
 /**
  * Created by Maciej Jankowicz on 10.07.18, 13:17
  * Contact: mj6367@gmail.com
@@ -17,7 +20,7 @@ public class BruteForcer implements Runnable{
         this.password = password.getPassword();
         this.length = password.getLength();
         this.firstChar = firstChar;
-        this.possibleValues = password.getComplexity().getComplexityRange();
+        this.possibleValues = password.getComplexity().getComplexity();
         prepareStartingSequence();
     }
 
@@ -37,18 +40,20 @@ public class BruteForcer implements Runnable{
             return true;
         }
 
-        double charCode = -1d;
+        int numOffset = 55;
+        int numLetterOffset = 61;
+        double charCode;
 
         for(int i = 0; i<Math.pow(possibleValues, this.length); i++){
             for(int j = 1; j < startingSequence.length; j++){
 
-                charCode = ((new Double(i/(Math.pow(possibleValues,j)))).intValue()%possibleValues); //+48
-                if(charCode <10) {                      //numbers
-                    charCode += 48;
-                }else if(charCode>=10 && charCode<36){  //letters
-                    charCode += 55;
-                }else if(charCode >=36 && charCode<62){
-                    charCode += 61;
+                charCode = ((new Double(i/(Math.pow(possibleValues,j)))).intValue() % possibleValues);
+                if(charCode < Complexity.NUMS.getComplexity()) {
+                    charCode += AsciiValues.LOWER_DIGIT_BOUND.getValue();
+                }else if(charCode >= Complexity.NUMS.getComplexity() && charCode < Complexity.LETTERS.getComplexity()){
+                    charCode += numOffset;
+                }else if(charCode >= Complexity.LETTERS.getComplexity() && charCode < Complexity.NUMS_AND_LETTERS.getComplexity()){
+                    charCode += numLetterOffset;
                 }
                 startingSequence[j] = (char) charCode;
             }
