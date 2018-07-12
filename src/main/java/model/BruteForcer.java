@@ -18,7 +18,7 @@ public class BruteForcer implements Runnable{
         this.password = password.getPassword();
         this.length = password.getLength();
         this.firstChar = firstChar;
-        this.possibleValues = password.getComplexity().getComplexityRange();
+        this.possibleValues = password.getComplexity().getComplexity();
         prepareStartingSequence();
     }
 
@@ -31,11 +31,13 @@ public class BruteForcer implements Runnable{
             }
             isFound = search();
             
-            if (isFound) break;
+            if (isFound) {
+                break;
+            }
         }
     }
 
-    private boolean search(){
+    private boolean search() {
         if(Comparator.isPasswordFound(String.valueOf(startingSequence))){
             return true;
         }
@@ -70,5 +72,9 @@ public class BruteForcer implements Runnable{
         for(int i = 1; i < this.length; i++){
             this.startingSequence[i] = '0';
         }
+    }
+
+    public boolean isFound() {
+        return isFound;
     }
 }
