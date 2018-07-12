@@ -10,19 +10,18 @@ public class BinarySearchController {
 
     private int fileCount;
     private int searchRange;
-    private String password;
     private String filePath;
     private BinarySearch binarySearch;
 
-    public BinarySearchController(int fileCount, int searchRange, String password, String filePath) {
+    public BinarySearchController(int fileCount, int searchRange, String filePath) {
         this.fileCount = fileCount;
         this.searchRange = searchRange;
-        this.password = passwordHash(password);
         this.filePath = filePath;
     }
 
-    public void binarySearch() {
-        this.binarySearch = new BinarySearch(fileCount, password, filePath, searchRange);
+    public void binarySearch(String userInputPassword) {
+        String hashedPassword = passwordHash(userInputPassword);
+        this.binarySearch = new BinarySearch(fileCount, hashedPassword, filePath, searchRange);
         Runnable runnable = binarySearch;
         Thread thread = new Thread(runnable);
         thread.run();

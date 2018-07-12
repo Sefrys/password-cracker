@@ -1,5 +1,6 @@
 package model;
 
+import controller.BruteForceController;
 import utils.AsciiValues;
 import utils.Complexity;
 
@@ -34,6 +35,8 @@ public class BruteForcer implements Runnable{
             isFound = search();
             
             if (isFound) {
+                System.out.println("Password cracked successfully. Aborting");
+                BruteForceController.stopCrackingThreads();
                 break;
             }
         }
@@ -48,15 +51,18 @@ public class BruteForcer implements Runnable{
         int numLetterOffset = 61;
         double charCode;
 
-        for(int i = 0; i<Math.pow(possibleValues, this.length); i++){
-            for(int j = 1; j < startingSequence.length; j++){
+        for (int i = 0; i < Math.pow(possibleValues, this.length); i++) {
+            for (int j = 1; j < startingSequence.length; j++) {
 
-                charCode = ((new Double(i/(Math.pow(possibleValues,j)))).intValue() % possibleValues);
+                charCode = (new Double(i/(Math.pow(possibleValues,j)))).intValue() % possibleValues;
+
                 if(charCode < Complexity.NUMS.getComplexity()) {
                     charCode += AsciiValues.LOWER_DIGIT_BOUND.getValue();
-                }else if(charCode >= Complexity.NUMS.getComplexity() && charCode < Complexity.LETTERS.getComplexity()){
+
+                } else if(charCode >= Complexity.NUMS.getComplexity() && charCode < Complexity.LETTERS.getComplexity()) {
                     charCode += numOffset;
-                }else if(charCode >= Complexity.LETTERS.getComplexity() && charCode < Complexity.NUMS_AND_LETTERS.getComplexity()){
+
+                } else if(charCode >= Complexity.LETTERS.getComplexity() && charCode < Complexity.NUMS_AND_LETTERS.getComplexity()) {
                     charCode += numLetterOffset;
                 }
                 startingSequence[j] = (char) charCode;
