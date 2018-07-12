@@ -14,7 +14,7 @@ public class BruteForcer implements Runnable{
     private int possibleValues;
     private char[] startingSequence;
     private String password;
-    private boolean isFound = false;
+    private Boolean isFound = null;
 
 
     public BruteForcer(Password password, char firstChar) {
@@ -22,6 +22,7 @@ public class BruteForcer implements Runnable{
         this.length = password.getLength();
         this.firstChar = firstChar;
         this.possibleValues = password.getComplexity().getComplexity();
+
         prepareStartingSequence();
         assignIdForNewInstance();
     }
@@ -75,5 +76,9 @@ public class BruteForcer implements Runnable{
 
     public boolean isFound() {
         return isFound;
+    }
+
+    public char[] getStartingSequence() {
+        return startingSequence;
     }
 }

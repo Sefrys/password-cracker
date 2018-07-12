@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.BruteForcer;
 import model.Comparator;
 import model.Password;
 import service.InputGetter;
@@ -52,8 +53,10 @@ public class MainController {
         }
         
         if (password != null) {
-//            new Comparator(password.getPassword());
+            new Comparator(password.getPassword());
+
             BruteForceController.runCracker(password);
+            BruteForceController.runThreadContainer();
         }
     }
 }

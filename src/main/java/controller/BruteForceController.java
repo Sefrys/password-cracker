@@ -4,6 +4,7 @@ import model.BruteForcer;
 import model.Password;
 import model.ThreadContainer;
 import utils.AsciiValues;
+import view.View;
 
 /**
  * Created by Maciej Jankowicz on 11.07.18, 13:46
@@ -27,10 +28,11 @@ public class BruteForceController {
             }
 
             BruteForcer bruteForcer = new BruteForcer(password, firstCharacter);
-
             ThreadContainer.add(bruteForcer);
+
             new Thread(bruteForcer).start();
 
+            prepareSequenceForDisplay();
             firstCharacter++;
         }
        t1.interrupt();
@@ -45,4 +47,33 @@ public class BruteForceController {
     private static void initializeContainerForThreads() {
         threadContainer = new ThreadContainer();
     }
+
+    private static void prepareSequenceForDisplay() {
+        if (ThreadContainer.threadList.size() > 0) {
+            View view = new View();
+
+            if (threadContainer.getRandomThread() == null) {
+
+            }
+            else {
+                char[] signs = threadContainer.getRandomThread().getStartingSequence();
+                String result = buildWord(signs);
+
+                int numberOfThreads = ThreadContainer.threadList.size();
+
+                view.display(numberOfThreads);
+                view.display(result);
+            }
+        }
+    }
+
+    private static String buildWord(char[] signs) {
+        StringBuilder sb = new StringBuilder();
+
+        for (char sign : signs) {
+            sb.append(sign);
+        }
+        return sb.toString();
+    }
+
 }

@@ -48,13 +48,13 @@ public class ThreadContainer implements Runnable {
             if (Thread.interrupted()) {
                 break;
             }
-            remove();
-            pickRandomElement();
-
             try {
                 sleep(2000);
             }
             catch (InterruptedException e) {}
+            remove();
+            pickRandomElement();
+
         }
     }
 
@@ -68,7 +68,6 @@ public class ThreadContainer implements Runnable {
     private int generateRandomNumber() {
         Random random = new Random();
         int range = threadList.size() - 1;
-
         return random.nextInt(range);
     }
 
