@@ -11,9 +11,9 @@ public class PasswordService {
 
     public static void validate(String password) throws IllegalArgumentException {
         iterate(password);
-        if (containsLowerCaseCharacter) complexity = Complexity.HARD;
-        else if (containsUpperCaseCharacter) complexity = Complexity.MEDIUM;
-        else if (containsDigits) complexity = Complexity.EASY;
+        if (containsLowerCaseCharacter) complexity = Complexity.NUMS_AND_LETTERS;
+        else if (containsUpperCaseCharacter) complexity = Complexity.LETTERS;
+        else if (containsDigits) complexity = Complexity.NUMS;
     }
 
     public static Complexity getComplexity() {
