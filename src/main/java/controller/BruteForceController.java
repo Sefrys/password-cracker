@@ -2,6 +2,7 @@ package controller;
 
 import model.BruteForcer;
 import model.Password;
+import model.ThreadContainer;
 import utils.AsciiValues;
 
 /**
@@ -9,6 +10,8 @@ import utils.AsciiValues;
  * Contact: mj6367@gmail.com
  */
 public class BruteForceController {
+
+    private static ThreadContainer threadContainer;
 
     public static void runCracker(Password password){
         char firstCharacter = AsciiValues.LOWER_DIGIT_BOUND.getValue();
@@ -22,9 +25,20 @@ public class BruteForceController {
                 firstCharacter = AsciiValues.LOWER_LOWERCASE_LETTER_BOUND.getValue();
             }
 
-            (new Thread(new BruteForcer(password, firstCharacter))).start();
+            BruteForcer bruteForcer = new BruteForcer(password, firstCharacter);
+
+            ThreadContainer.add(bruteForcer);
+            new Thread(bruteForcer).start();
 
             firstCharacter++;
         }
+    }
+
+    public static void initializeContainerForThreads() {
+        threadContainer = new ThreadContainer();
+    }
+
+    private static void runThreadContainer() {
+        new Thread(threadContainer).start();
     }
 }
