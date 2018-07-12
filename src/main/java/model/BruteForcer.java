@@ -6,6 +6,9 @@ package model;
  */
 public class BruteForcer implements Runnable{
 
+    private static int idCounter = 0;
+
+    private int id;
     private char firstChar;
     private int length;
     private int possibleValues;
@@ -14,12 +17,13 @@ public class BruteForcer implements Runnable{
     private boolean isFound = false;
 
 
-    public BruteForcer(Password password, char firstChar){
+    public BruteForcer(Password password, char firstChar) {
         this.password = password.getPassword();
         this.length = password.getLength();
         this.firstChar = firstChar;
         this.possibleValues = password.getComplexity().getComplexity();
         prepareStartingSequence();
+        assignIdForNewInstance();
     }
 
     @Override
@@ -62,6 +66,11 @@ public class BruteForcer implements Runnable{
             }
         }
         return false;
+    }
+
+    private void assignIdForNewInstance() {
+        idCounter++;
+        id = idCounter;
     }
 
     private void prepareStartingSequence() {
