@@ -26,4 +26,8 @@ public class View {
         System.out.println(msg);
     }
 
+    public void display(int number) {
+        System.out.println("At the moment there are " + number + " working threads.");
+    }
+
 }
