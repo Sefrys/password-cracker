@@ -40,18 +40,20 @@ public class MainController {
     }
 
     private void handleCrackPassword() {
+        Password password = null;
         view.display(Message.passwordInput.msg);
         String passwordToCrack = inputGetter.takeUserInput();
 
         try {
-            Password password = new Password(passwordToCrack);
-            new Comparator(password.getPassword());
-            BruteForceController.runCracker(password);
+            password = new Password(passwordToCrack);
         }
         catch (IllegalArgumentException e) {
             view.displayError(e.getMessage());
         }
-
         
+        if (password != null) {
+//            new Comparator(password.getPassword());
+            BruteForceController.runCracker(password);
+        }
     }
 }

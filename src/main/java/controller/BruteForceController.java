@@ -2,6 +2,7 @@ package controller;
 
 import model.BruteForcer;
 import model.Password;
+import utils.AsciiValues;
 
 /**
  * Created by Maciej Jankowicz on 11.07.18, 13:46
@@ -10,13 +11,15 @@ import model.Password;
 public class BruteForceController {
 
     public static void runCracker(Password password){
+        char firstCharacter = AsciiValues.LOWER_DIGIT_BOUND.getValue();
 
-        char firstCharacter = 48;
-        while (firstCharacter < 123){
-            if(firstCharacter == 58){
-                firstCharacter = 65;
-            }else if(firstCharacter == 91){
-                firstCharacter = 97;
+        while (firstCharacter < AsciiValues.UPPER_LOWERCASE_LETTER_BOUND.getValue()){
+
+            if(firstCharacter == AsciiValues.UPPER_DIGIT_BOUND.getValue()){
+                firstCharacter = AsciiValues.LOWER_CAPITAL_LETTER_BOUND.getValue();
+
+            }else if(firstCharacter == AsciiValues.UPPER_CAPITAL_LETTER_BOUND.getValue()){
+                firstCharacter = AsciiValues.LOWER_LOWERCASE_LETTER_BOUND.getValue();
             }
 
             (new Thread(new BruteForcer(password, firstCharacter))).start();

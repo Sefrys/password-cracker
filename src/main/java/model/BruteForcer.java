@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 /**
  * Created by Maciej Jankowicz on 10.07.18, 13:17
  * Contact: mj6367@gmail.com
@@ -13,6 +11,7 @@ public class BruteForcer implements Runnable{
     private int possibleValues;
     private char[] startingSequence;
     private String password;
+    private boolean isFound = false;
 
 
     public BruteForcer(Password password, char firstChar){
@@ -20,24 +19,24 @@ public class BruteForcer implements Runnable{
         this.length = password.getLength();
         this.firstChar = firstChar;
         this.possibleValues = password.getComplexity().getComplexity();
-        this.startingSequence = new char[this.length];
-        this.startingSequence[0] = this.firstChar;
-        for(int i = 1; i < this.length; i++){
-            this.startingSequence[i] = '0';
-        }
+        prepareStartingSequence();
     }
 
     @Override
     public void run() {
-        Date start = new Date();
-        boolean found = search();
-        Date end = new Date();
-        System.out.println("--------------------------------");
-        if(found) System.out.println("it took: " + (end.getTime() - start.getTime()) + "ms to crack '" + this.password +
-                "' using Bruteforce by WatekLeszczy");
+        while (true) {
+            if (Thread.interrupted()) {
+                break;
+            }
+            isFound = search();
+            
+            if (isFound) {
+                break;
+            }
+        }
     }
 
-    private boolean search(){
+    private boolean search() {
         if(Comparator.isPasswordFound(String.valueOf(startingSequence))){
             return true;
         }
@@ -63,5 +62,18 @@ public class BruteForcer implements Runnable{
             }
         }
         return false;
+    }
+
+    private void prepareStartingSequence() {
+        this.startingSequence = new char[this.length];
+        this.startingSequence[0] = this.firstChar;
+
+        for(int i = 1; i < this.length; i++){
+            this.startingSequence[i] = '0';
+        }
+    }
+
+    public boolean isFound() {
+        return isFound;
     }
 }
