@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 /**
  * Created by Maciej Jankowicz on 10.07.18, 13:17
  * Contact: mj6367@gmail.com
@@ -19,21 +17,19 @@ public class BruteForcer implements Runnable{
         this.password = password.getPassword();
         this.length = password.getLength();
         this.firstChar = firstChar;
-        this.possibleValues = password.getComplexity().getComplexity();
-        this.startingSequence = new char[this.length];
-        this.startingSequence[0] = this.firstChar;
-        for(int i = 1; i < this.length; i++){
-            this.startingSequence[i] = '0';
-        }
+        this.possibleValues = password.getComplexity().getComplexityRange();
+        prepareStartingSequence();
     }
 
     @Override
     public void run() {
-        Date start = new Date();
-        boolean found = search();
-        Date end = new Date();
-        if(found) System.out.println("it took: " + (end.getTime() - start.getTime()) + "ms to crack '" + this.password +
-                "' using Bruteforce by WatekLeszczy");
+
+//        while (true) {
+//            if (Thread.interrupted()) {
+//                break;
+//            }
+            boolean found = search();
+//        }
     }
 
     private boolean search(){
@@ -62,5 +58,14 @@ public class BruteForcer implements Runnable{
             }
         }
         return false;
+    }
+
+    private void prepareStartingSequence() {
+        this.startingSequence = new char[this.length];
+        this.startingSequence[0] = this.firstChar;
+
+        for(int i = 1; i < this.length; i++){
+            this.startingSequence[i] = '0';
+        }
     }
 }
