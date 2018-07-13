@@ -16,8 +16,11 @@ public class MainController {
     private BinarySearchController bsC;
     private String passwordToCrack;
 
-    private static final String checkPassword = "1";
-    private static final String exit = "2";
+
+    private static final String crackPassword = "1";
+    private static final String checkPassword = "2";
+
+    private static final String exit = "3";
 
 
     private boolean isAppEnd = false;
@@ -43,17 +46,17 @@ public class MainController {
                 this.passwordToCrack = inputGetter.takeUserInput();
 
                 handleBinarySearch();
+            }
 
-                if (!bsC.getBinarySearch().isPasswordFound()) {
-                    handleCrackPassword();
-
-                } else {
-                    break;
-                }
+            if (crackPassword.equals(userInput)) {
+                view.display(Message.passwordInput.msg);
+                this.passwordToCrack = inputGetter.takeUserInput();
+                handleCrackPassword();
             }
 
             if (exit.equals(userInput)) {
                 isAppEnd = true;
+                break;
             }
         }
     }

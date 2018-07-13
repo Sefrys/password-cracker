@@ -38,6 +38,7 @@ public class BruteForceController {
         for (Thread thread : threads) {
             if (!thread.isInterrupted()) {
                 thread.interrupt();
+                thread = null;
             }
         }
     }
